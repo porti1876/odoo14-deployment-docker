@@ -1,0 +1,52 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="hospital_management.list">
+      <field name="name">Control de visitas Hospital Treming</field>
+      <field name="model">hospital_management.hospital_management</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="appointment_date"/>
+          <field name="name"/>
+          <field name="pacient_id"/>
+          <field name="description" optional="hide"/>
+        </tree>
+      </field>
+    </record>
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="hospital_management.action_window">
+      <field name="name">Control de visitas Treming</field>
+      <field name="res_model">hospital_management.hospital_management</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <!-- server action to the one above -->
+
+    <record model="ir.actions.server" id="hospital_management.action_server">
+      <field name="name">hospital_management server</field>
+      <field name="model_id" ref="model_hospital_management_hospital_management"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+
+
+    <!-- Top menu item -->
+    <menuitem name="Hospital Treming" id="hospital_management.menu_root"/>
+
+    <!-- menu categories -->
+    <menuitem name="Menu Pacientes" id="hospital_management.menu_1" parent="hospital_management.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="Lista pacientes" id="hospital_management.menu_1_list" parent="hospital_management.menu_1"
+              action="hospital_management.action_window"/>
+
+  </data>
+</odoo>
